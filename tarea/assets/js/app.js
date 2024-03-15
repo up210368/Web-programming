@@ -16,12 +16,12 @@ getAllUsers().then(function(json){
 userSelect.addEventListener("change", (event)=>{
   getAllUsers().then(function(json){
     const ul = document.createElement('ul');
-    for(let i = 0; i < 2; i++){
-      const li = document.createElement('li');
-      li.innerText = `Nombre completo: ${json[event.target.value].firstname} ${json[event.target.value].lastname}`;
-      li.innerText = `Email: ${json[event.target.value].email}`;
-      ul.appendChild(li);
-    }
+      const li1 = document.createElement('li');
+      const li2 = document.createElement('li');
+      li1.innerText = `Nombre completo: ${json[event.target.value].firstname} ${json[event.target.value].lastname}`;
+      li2.innerText = `Email: ${json[event.target.value].email}`;
+      ul.appendChild(li1);
+      ul.appendChild(li2);
     userContainer.appendChild(ul);
   });
 });

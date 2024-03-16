@@ -1,63 +1,83 @@
 // Elementos HTML
 const userSelect = document.getElementById('select-users');
+console.log(userSelect);
 const userContainer = document.getElementById('user-container');
 const taskContainer = document.getElementById('task-container');
-// Codígo nesesario para mostrar información
-getAllUsers().then(function(json){
-  for(let i = 0; i < json.length; i++){
-    const option = document.createElement('option');
-    option.setAttribute("value", i);
-    option.innerText = json[i].firstname;
-    userSelect.appendChild(option);
-  }
-  
-});
+const displayButton = document.getElementById('btndisplay');
 
-userSelect.addEventListener("change", (event)=>{
-  getAllUsers().then(function(json){
-    const ul = document.createElement('ul');
-      const li1 = document.createElement('li');
-      const li2 = document.createElement('li');
-      li1.innerText = `Nombre completo: ${json[event.target.value].firstname} ${json[event.target.value].lastname}`;
-      li2.innerText = `Email: ${json[event.target.value].email}`;
-      ul.appendChild(li1);
-      ul.appendChild(li2);
-    userContainer.appendChild(ul);
-  });
-});
-// Fin de codígo 
+userSelect.addEventListener('click',()=>{
+    // getAllUsers()
+    getUser(userSelect.value).then((text)=>{
+        const nombreCompleto = userContainer.children[1].children[0].children[0];
+        const emailUsuario = userContainer.children[1].children[1].children[0];
+        console.log(text)
+        nombreCompleto.textContent = `${text.firstname} ${text.lastname}`
+        emailUsuario.textContent = `${text.email}`
+    })
+    //console.log(getAllTasks())
+    getTasks(userSelect.value).then((text)=>{
+        taskContainer.style.visibility = 'hidden'
+        const ul = taskContainer.children[1]
+        // ul.replaceChildren()
+        while(ul.firstChild){
+            ul.removeChild(ul.firstChild)
+        }
+            for (let i = 0; i < text.length; i++) {
+                const li = document.createElement('li')
+                const checkbox = document.createElement('input')
+                checkbox.setAttribute('type','checkbox')
+                li.innerText = `${text[i].id}. ${text[i].title}`
+                if (text[i].completed) {
+                    checkbox.checked = true
+                }
+                li.appendChild(checkbox)
+                ul.appendChild(li)    
+            }            
+    })
+    
+}); //Fin de select mostrar informacion
 
-// Funciones
-/**
- * Optiene una lista de todos los usuarios que pueden existir
- * @returns {Promise<User[]>}
- */
+displayButton.addEventListener('click',()=>{
+    if (taskContainer.style.visibility === 'visible') {
+        taskContainer.style.visibility = 'hidden';
+    } else {
+        taskContainer.style.visibility = 'visible';
+    }
+})
+
 function getAllUsers() {
-  return fetch('/data/usuarios.json')
-    .then(resp => resp.json());
+    return fetch('data/usuarios.json')
+    .then((resp) => console.log(resp.json()));
+    
 }
 
-/**
- * Optiene una lista de todas las tareas que hay de todos los usuarios
- * @returns {Promise<Task[]>}
- */
+function getUser(value) {
+    return fetch('data/usuarios.json')
+    .then((resp) => {
+        return resp.json()
+    }).then((resp)=>{
+        return resp[value-1]
+    });
+}
+
+function getTasks(userId){
+    return fetch('data/tareas.json')
+    .then((resp)=>{
+        return resp.json()
+    }).then((resp)=>{
+        const array = []
+        for (let i = 0; i < resp.length; i++) {
+            const element = resp[i];
+            if (element.userId==userId) {
+                array.push(element);
+            }
+        }
+        return array
+    })
+}
+
 function getAllTasks() {
-  return fetch('/data/usuarios.json')
-    .then(resp => resp.json());
+  return fetch('data/tareas.json')
+    .then(resp => {
+        return resp.json()});
 }
-
-/**
- * @typedef User Definición de un usuario
- * @property {number} id Identificador unico del usuario
- * 
- * 
- * @property {string} email Correo electronico del usuario
-  */
-
-/**
- * @typedef Task Definición de una tarea de usuario
- * @property {number} id Identificador unico de la tarea
- * @property {number} userId IDentificador del uaurio a quien corresponde la tarea
- * @property {string} title Titulo de la tarea
- * @property {boolean} completed Estado de la tarea si esta completada o no
- */

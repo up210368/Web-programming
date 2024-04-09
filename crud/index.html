@@ -37,14 +37,6 @@
                   <hr class="border-dark" />
                 </select>
               </div>
-              <div class="mb-3">
-                <textarea
-                  placeholder="Write a task's description"
-                  class="form-control"
-                  name="description"
-                  id="description"
-                  rows="8"></textarea>
-              </div>
               <button type="submit" class="btn btn-primary w-100">Save</button>
             </form>
           </div>
@@ -56,39 +48,10 @@
                 <th>ID</td>
                 <th>User</td>
                 <th>Title</td>
-                <th>Description</td>
                 <th>Action</td>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Rogelio</td>
-                <td>Some Title</td>
-                <td>Lorem ipsum dolor .</td>
-                <td>
-                  <button class="btn btn-secondary btn-sm">
-                    <span>Update</span> <i class="nf nf-md-pencil"></i>
-                  </button>
-                  <button class="btn btn-danger btn-sm">
-                    <span>Delete</span> <i class="nf nf-cod-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Rogelio</td>
-                <td>Some Title</td>
-                <td>Lorem ipsum dolor .</td>
-                <td>
-                  <button class="btn btn-secondary btn-sm">
-                    <span>Update</span> <i class="nf nf-md-pencil"></i>
-                  </button>
-                  <button class="btn btn-danger btn-sm">
-                    <span>Delete</span> <i class="nf nf-cod-trash"></i>
-                  </button>
-                </td>
-              </tr>
+            <tbody id="Tasktable">
             </tbody>
           </table>
         </article>

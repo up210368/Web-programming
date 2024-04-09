@@ -3,6 +3,11 @@ export async function getAllUsers(){
     const json = await resp.json();
 
     return json;
+}
 
-    console.log(text);
+export async function GetAllTasks(){
+    const resp = await fetch("/api/getTasks.php");
+    const json = await resp.json();
+
+    return json;
 }

@@ -22,7 +22,7 @@
               <p id="form-title" class="h2 text-center text-capitalize">Insert
                 Task</p>
             </header>
-            <form id="form-task" class="card-body">
+            <form id="form-task" class="card-body" method="post">
               <div class="mb-3">
                 <input
                   type="text"
@@ -36,8 +36,11 @@
                   <option selected disabled>Select a User</option>
                   <hr class="border-dark" />
                 </select>
+                <select class="form-select" name="task" id="lonelytask">
+                  <option selected disabled>Insert task ID</option>
+                </select>
               </div>
-              <button type="submit" class="btn btn-primary w-100">Save</button>
+              <button type="submit" class="btn btn-primary w-100" id="createTask">Save</button>
             </form>
           </div>
         </article>

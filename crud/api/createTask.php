@@ -1,13 +1,17 @@
 <?php
 include "./partials/Connection.php";
 
-$title = $_POST['title'];
 $userId = $_POST['users'];
+$taskTitle = $_POST['title'];
+$completed = $_POST['completed'];
 
 try {
-    $insert = $conn->prepare("Insert into task (id, title, completed, idUser) values (null, ?, 0, ?)");
-    $insert->execute([$title, $userId]);
+    $sql = "INSERT INTO task (title, idUser, completed) VALUES (?, ?, ?)";
+    $state = $conn->prepare($sql);
+    $state->execute([$taskTitle, $userId, $completed]);
+    $lastInsertId = $conn->lastInsertId();
+
+    echo json_encode(["success" => true, "taskId" => $lastInsertId]);
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-?>

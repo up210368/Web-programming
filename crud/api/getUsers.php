@@ -3,7 +3,7 @@ include "./partials/Connection.php";
 
 try {
     $sql = "Select * from user;";
-    $state = $conn->query($sql);
+    $state = $conn->query(sql);
 
     $json = [];
     while($row = $state->fetch(PDO::FETCH_ASSOC)){

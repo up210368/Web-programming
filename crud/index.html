@@ -22,39 +22,74 @@
               <p id="form-title" class="h2 text-center text-capitalize">Insert
                 Task</p>
             </header>
-            <form id="form-task" class="card-body" method="post">
+            <form id="form-task" class="card-body">
               <div class="mb-3">
                 <input
                   type="text"
                   class="form-control"
                   name="title"
                   id="title"
-                  placeholder="Write a task title" />
+                  placeholder="Task" 
+                  autofocus
+                  required
+                  />
               </div>
               <div class="mb-3">
                 <select class="form-select" name="users" id="users">
                   <option selected disabled>Select a User</option>
                   <hr class="border-dark" />
                 </select>
-                <select class="form-select" name="task" id="lonelytask">
-                  <option selected disabled>Insert task ID</option>
-                </select>
               </div>
-              <button type="submit" class="btn btn-primary w-100" id="createTask">Save</button>
+              <div class="mb-3">
+                Estado
+                <input type="checkbox" name="completed" id="completed">
+              </div>
+              <button type="submit" class=" btn btn-info btn-sm w-100" id="insert">
+                SAVE
+              </button>
             </form>
           </div>
         </article>
         <article class="col-8">
-          <table class="table table-dark table-hover">
+          <table class="table table-dark table-hover" id="tasks">
             <thead>
               <tr>
                 <th>ID</td>
                 <th>User</td>
                 <th>Title</td>
+                <th>Task Completed</td>
                 <th>Action</td>
               </tr>
             </thead>
-            <tbody id="Tasktable">
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Rogelio</td>
+                <td>Some Title</td>
+                <td>Lorem ipsum dolor .</td>
+                <td>
+                  <button class="btn btn-secondary btn-sm">
+                    <span>Update</span> <i class="nf nf-md-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm">
+                    <span>Delete</span> <i class="nf nf-cod-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Rogelio</td>
+                <td>Some Title</td>
+                <td>Lorem ipsum dolor .</td>
+                <td>
+                  <button class="btn btn-secondary btn-sm">
+                    <span>Update</span> <i class="nf nf-md-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm">
+                    <span>Delete</span> <i class="nf nf-cod-trash"></i>
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </article>

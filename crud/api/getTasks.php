@@ -1,23 +1,24 @@
 <?php
 include "./partials/Connection.php";
 
+$idUser = $_GET['id'];
+
 try {
-    $sql = "Select e.id, concat(e.firstname, ' ', e.lastname) as fullname, t.title, t.id as taskid
-    from user e inner join task t 
-    on e.id = t.idUser;";
+    $sql = "SELECT t.*,u.firstname FROM `task` t INNER JOIN `user` u ON u.id=t.idUser WHERE idUser = {$idUser};";
     $state = $conn->query($sql);
-
     $json = [];
-    while($row = $state->fetch()){
+    while ($row = $state->fetch(PDO::FETCH_ASSOC)) {
         $json[] = [
-            "id" => $row["id"],
-            "taskid" => $row["taskid"],
-            "title" => $row["title"],
-            "fullname" => $row["fullname"]
+            'id' => $row['id'],
+            'title' => $row['title'],
+            'completed' => $row['completed'],
+            'idUser' => $row['idUser'],
+            'firstname' => $row['firstname']
         ];
-    }
-    echo json_encode($json);
+    };
 
+    $jsonString = json_encode($json);
+    echo $jsonString;
 } catch (PDOException $e) {
     die($e->getMessage());
 }
